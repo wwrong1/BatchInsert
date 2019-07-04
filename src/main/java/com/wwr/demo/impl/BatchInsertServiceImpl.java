@@ -26,7 +26,7 @@ public class BatchInsertServiceImpl implements BatchInsertService {
             return;
         }
         // 一个线程处理每批的数据条数
-        int count = 1500;
+        int count =2500;
         // 数据集合大小
         int listSize = list.size();
         // 开启的线程数
