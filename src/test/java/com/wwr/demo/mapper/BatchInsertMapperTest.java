@@ -39,7 +39,7 @@ public class BatchInsertMapperTest {
                 list.add(info);
             }
 
-            testBatchInsertService.batchInsertByThread(list);
+            testBatchInsertService.batchInsertByThread(list,2500,16);
 
             System.out.println("------Batch Insert Success------");
 
@@ -69,7 +69,7 @@ public class BatchInsertMapperTest {
                 list.add(info);
             }
 
-            testBatchInsertService.batchInsert(list);
+            testBatchInsertService.batchInsert(list,2500);
 
             System.out.println("------Batch Insert Success------");
 

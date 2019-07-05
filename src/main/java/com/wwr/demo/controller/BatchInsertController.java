@@ -12,15 +12,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@RestController("/demo")
 public class BatchInsertController {
 
     @Autowired
     private BatchInsertService testBatchInsertService;
 
     @ApiOperation(value="单线程批量添加", notes="单线程的多批量的大数据添加方法")
-    @RequestMapping(value="/batchInsert/{sum}",  method = RequestMethod.GET)
-    public String batchInsert(@PathVariable("sum") Integer sum) {
+    @RequestMapping(value="/batchInsert/{sum}/{sumOfPerBatch}",  method = RequestMethod.GET)
+    public String batchInsert(@PathVariable("sum") Integer sum,@PathVariable("sumOfPerBatch") Integer sumOfPerBatch) {
         long startTime = System.currentTimeMillis();
 
         try {
@@ -37,7 +36,7 @@ public class BatchInsertController {
                 list.add(info);
             }
 
-            testBatchInsertService.batchInsert(list);
+            testBatchInsertService.batchInsert(list,sumOfPerBatch);
 
             System.out.println("------Batch Insert Success------");
 
@@ -49,10 +48,11 @@ public class BatchInsertController {
         return "添加成功,耗时(s):" + t/1000;
     }
 
+    //请求参数
+    //　　请求参数采用key = value形式，并用“&”分隔。
     @ApiOperation(value="多线程批量添加", notes="多线程的多批量的大数据添加方法")
-//    @ApiImplicitParam(name = "sum", value = "数据总量", required = true, dataType = "Integer")
-    @RequestMapping(value="/batchInsertByThreads/{sum}", method = RequestMethod.GET)
-    public String batchInsertByThreads(@RequestParam("sum") Integer sum) {
+    @RequestMapping(value="batchInsertByThreads", method = RequestMethod.GET)
+    public String batchInsertByThreads(@RequestParam("sum") Integer sum ,@RequestParam("numOfThreads") Integer numOfThreads,@RequestParam("sumOfPerBatch") Integer sumOfPerBatch) {
         long startTime = System.currentTimeMillis();
 
         try {
@@ -69,7 +69,7 @@ public class BatchInsertController {
                 list.add(info);
             }
 
-            testBatchInsertService.batchInsertByThread(list);
+            testBatchInsertService.batchInsertByThread(list,sumOfPerBatch,numOfThreads);
 
             System.out.println("------Batch Insert Success------");
 
@@ -80,7 +80,7 @@ public class BatchInsertController {
         System.out.println("耗时(s):" + t/1000);
         return "添加成功,耗时(s):" + t/1000;
     }
-
+//    //路径参数
 //    @GetMapping("/test/{id}")
 //    public String test(@PathVariable String id){
 //        System.out.println("===================="+id);
