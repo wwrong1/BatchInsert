@@ -10,6 +10,7 @@ import java.util.concurrent.CountDownLatch;
 public class BatchInsertThread implements Runnable{
 
     private SplitToBatchUtil splitToBatchUtil;
+
     /**数据集合*/
     private List<Student> list;
 
@@ -32,7 +33,7 @@ public class BatchInsertThread implements Runnable{
         try {
 
             if (list != null && !list.isEmpty()) {
-                splitToBatchUtil.insert(list,sumOfPerBatch);
+                splitToBatchUtil.splitAndInsert(list,sumOfPerBatch);
             }
 
         } catch (Exception e) {

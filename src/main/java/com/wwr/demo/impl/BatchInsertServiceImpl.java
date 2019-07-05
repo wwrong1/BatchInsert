@@ -2,13 +2,11 @@ package com.wwr.demo.impl;
 
 import com.wwr.demo.api.BatchInsertService;
 import com.wwr.demo.model.Student;
-import com.wwr.demo.mapper.BatchInsertMapper;
 import com.wwr.demo.util.SplitToBatchUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -67,7 +65,7 @@ public class BatchInsertServiceImpl implements BatchInsertService {
         if (list == null || list.isEmpty()) {
             return;
         }
-        splitToBatchUtil.insert(list,sumOfPerBatch);
+        splitToBatchUtil.splitAndInsert(list,sumOfPerBatch);
     }
 }
 

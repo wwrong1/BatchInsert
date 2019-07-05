@@ -2,7 +2,6 @@ package com.wwr.demo.controller;
 
 import com.wwr.demo.api.BatchInsertService;
 import com.wwr.demo.model.Student;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
+@RestController
 public class BatchInsertController {
 
     @Autowired
@@ -44,8 +44,8 @@ public class BatchInsertController {
             e.printStackTrace();
         }
         long t = System.currentTimeMillis() - startTime;
-        System.out.println("耗时(s):" + t/1000);
-        return "添加成功,耗时(s):" + t/1000;
+        System.out.println("耗时:" + t/1000+"s,"+t%1000+"ms");
+        return "添加成功,耗时:" + t/1000+"s,"+t%1000+"ms";
     }
 
     //请求参数
@@ -77,13 +77,13 @@ public class BatchInsertController {
             e.printStackTrace();
         }
         long t = System.currentTimeMillis() - startTime;
-        System.out.println("耗时(s):" + t/1000);
-        return "添加成功,耗时(s):" + t/1000;
+        System.out.println("耗时:" + t/1000+"s,"+t%1000+"ms");
+        return "添加成功,耗时:" + t/1000+"s,"+t%1000+"ms";
     }
 //    //路径参数
-//    @GetMapping("/test/{id}")
-//    public String test(@PathVariable String id){
+//    @GetMapping("/test/{id}/{sumOfPerBatch}")
+//    public String test(@PathVariable String id,@PathVariable String sumOfPerBatch){
 //        System.out.println("===================="+id);
-//        return id;
+//        return id+sumOfPerBatch;
 //    }
 }

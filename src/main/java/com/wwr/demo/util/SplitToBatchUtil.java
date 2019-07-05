@@ -18,7 +18,7 @@ public class SplitToBatchUtil {
         this.batchInsertMapper = batchInsertMapper;
     }
 
-    public void insert(List<Student> list, int sumOfPerBatch){
+    public void splitAndInsert(List<Student> list, int sumOfPerBatch){
         List<Student> newList;
 
         for (int i = 0; i < list.size()/sumOfPerBatch; i++) {
