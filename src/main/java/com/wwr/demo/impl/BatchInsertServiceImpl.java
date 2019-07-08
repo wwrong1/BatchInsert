@@ -43,6 +43,7 @@ public class BatchInsertServiceImpl implements BatchInsertService {
                 int startIdx = (i * count);
                 int endIdx = list.size();
 
+
                 newList = list.subList(startIdx, endIdx);
             } else {
                 int startIdx = (i * count);

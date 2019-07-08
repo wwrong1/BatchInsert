@@ -20,21 +20,23 @@ public class SplitToBatchUtil {
 
     public void splitAndInsert(List<Student> list, int sumOfPerBatch){
         List<Student> newList;
-
-        for (int i = 0; i < list.size()/sumOfPerBatch; i++) {
-            /* 计算每个线程执行的数据 */
-            if ((i + 1) == list.size()/sumOfPerBatch) {
-                int startIdx = (i * sumOfPerBatch);
-                int endIdx = list.size();
-
-                newList = list.subList(startIdx, endIdx);
-            } else {
-                int startIdx = (i * sumOfPerBatch);
-                int endIdx = (i + 1) * sumOfPerBatch;
-
-                newList = list.subList(startIdx, endIdx);
+        if (list.size()<sumOfPerBatch){
+            batchInsertMapper.batchInsert(list);
+        }
+        else {
+            for (int i = 0; i < list.size() / sumOfPerBatch; i++) {
+                /* 计算每个线程执行的数据 */
+                if ((i + 1) == list.size() / sumOfPerBatch) {
+                    int startIdx = (i * sumOfPerBatch);
+                    int endIdx = list.size();
+                    newList = list.subList(startIdx, endIdx);
+                } else {
+                    int startIdx = (i * sumOfPerBatch);
+                    int endIdx = (i + 1) * sumOfPerBatch;
+                    newList = list.subList(startIdx, endIdx);
+                }
+                batchInsertMapper.batchInsert(newList);
             }
-            batchInsertMapper.batchInsert(newList);
         }
     }
 
